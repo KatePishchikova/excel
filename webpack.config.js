@@ -47,8 +47,9 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(),
+
     new HTMLWebpackPlugin({
-      template: 'index.html',
+      template: './index.html',
       minify: {
         removeComments: isProd,
         collapseWhitespace: isProd
@@ -69,7 +70,13 @@ module.exports = {
       {
         test: /\.s[ac]ss$/i,
         use: [
-          MiniCssExtractPlugin.loader,
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              hmr: isDev,
+              reloadAll: true,
+            }
+          },
           'css-loader',
           'sass-loader'
         ],
